@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>878</width>
-    <height>307</height>
+    <width>934</width>
+    <height>354</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLabel" name="lbLeftRows">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="text">
              <string>Строки</string>
             </property>
@@ -30,6 +36,15 @@
           </item>
           <item>
            <widget class="QSpinBox" name="sbLeftRows">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="minimum">
              <number>1</number>
             </property>
@@ -41,6 +56,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QLabel" name="lbLeftColumns">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="text">
              <string>Столбцы</string>
             </property>
@@ -48,6 +69,15 @@
           </item>
           <item>
            <widget class="QSpinBox" name="sbLeftColumns">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="minimum">
              <number>1</number>
             </property>
@@ -58,7 +88,44 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableView" name="tvLeftMatrix"/>
+       <widget class="QTableView" name="tvLeftMatrix">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="textElideMode">
+         <enum>Qt::ElideMiddle</enum>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>35</number>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>45</number>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderMinimumSectionSize">
+         <number>35</number>
+        </attribute>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>45</number>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+       </widget>
       </item>
      </layout>
     </item>
@@ -82,6 +149,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QLabel" name="lbRightRows">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="text">
              <string>Строки</string>
             </property>
@@ -89,6 +162,15 @@
           </item>
           <item>
            <widget class="QSpinBox" name="sbRightRows">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="minimum">
              <number>1</number>
             </property>
@@ -100,6 +182,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <widget class="QLabel" name="lbRightColumns">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="text">
              <string>Столбцы</string>
             </property>
@@ -107,6 +195,15 @@
           </item>
           <item>
            <widget class="QSpinBox" name="sbRightColumns">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="minimum">
              <number>1</number>
             </property>
@@ -117,7 +214,44 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableView" name="tvRightMatrix"/>
+       <widget class="QTableView" name="tvRightMatrix">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="textElideMode">
+         <enum>Qt::ElideMiddle</enum>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>35</number>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>45</number>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderMinimumSectionSize">
+         <number>35</number>
+        </attribute>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>45</number>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+       </widget>
       </item>
      </layout>
     </item>
@@ -139,6 +273,12 @@
        <layout class="QHBoxLayout" name="horizontalLayout_7">
         <item>
          <widget class="QPushButton" name="pbMult">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
           <property name="text">
            <string>Умножить</string>
           </property>
@@ -146,6 +286,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="pbReset">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
           <property name="text">
            <string>Сброс</string>
           </property>
@@ -154,13 +300,58 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableView" name="tvResultMatrix"/>
+       <widget class="QTableView" name="tvResultMatrix">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::NoSelection</enum>
+        </property>
+        <property name="textElideMode">
+         <enum>Qt::ElideMiddle</enum>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>35</number>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>45</number>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderMinimumSectionSize">
+         <number>35</number>
+        </attribute>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>45</number>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+       </widget>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>sbLeftRows</tabstop>
+  <tabstop>sbLeftColumns</tabstop>
+  <tabstop>sbRightRows</tabstop>
+  <tabstop>sbRightColumns</tabstop>
+  <tabstop>pbMult</tabstop>
+  <tabstop>pbReset</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

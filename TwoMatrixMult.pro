@@ -1,8 +1,8 @@
+TARGET = TwoMatrixMult
+TEMPLATE = app
+VERSION = 1.0.0
+
 QT += core widgets
-
-CONFIG += c++11
-
-DEFINES += QT_DEPRECATED_WARNINGS
 
 DESTDIR = ./bin
 
@@ -10,7 +10,6 @@ RCC_DIR = ./build
 MOC_DIR = ./build
 OBJECTS_DIR = ./build
 UI_DIR = ./build
-
 
 SOURCES += src/MatrixModel.cpp \
            src/MultMatrixThread.cpp \

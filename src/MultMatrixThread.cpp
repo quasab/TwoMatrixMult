@@ -30,9 +30,11 @@ void MultMatrixThread::run()
             {
                 QModelIndex indexLeft = m_leftMatrix->index(i, k);
                 QModelIndex indexRight = m_rightMatrix->index(k, j);
+
                 matrixIJ += m_leftMatrix->data(indexLeft).toDouble() *
                             m_rightMatrix->data(indexRight).toDouble();
             }
+
             QModelIndex resultIndex = m_resultMatrix->index(i, j);
             m_resultMatrix->setData(resultIndex, matrixIJ);
         }

@@ -27,26 +27,48 @@ QVariant MatrixModel::data(const QModelIndex &_index, int _role) const
     {
         return m_matrix.at(_index.row()).at(_index.column());
     }
+
     return QVariant();
 }
 
-bool MatrixModel::setData(const QModelIndex &_index, const QVariant &_value, int _role)
+bool MatrixModel::setData(const QModelIndex &_index,
+                          const QVariant &_value,
+                          int _role)
 {
     if (_index.isValid() && _role == Qt::EditRole)
     {
-        m_matrix[_index.row()][_index.column()] = _value.toDouble();
+        bool ok = false;
+        double value = _value.toDouble(&ok);
 
-        emit dataChanged(_index, _index);
-        return true;
+        if (ok)
+        {
+            m_matrix[_index.row()][_index.column()] = value;
+
+            emit dataChanged(_index, _index);
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    return false;
 
+    return false;
 }
 
 Qt::ItemFlags MatrixModel::flags(const QModelIndex &_index) const
 {
     Qt::ItemFlags flags = QAbstractTableModel::flags(_index);
-    return _index.isValid() ? (flags | Qt::ItemIsEditable) : flags;
+
+    if (_index.isValid())
+    {
+        return (flags | Qt::ItemIsEditable);
+    }
+    else
+    {
+        return flags;
+    }
 }
 
 void MatrixModel::rowCountChanged(int _count)
@@ -75,7 +97,6 @@ void MatrixModel::rowCountChanged(int _count)
             m_matrix.removeLast();
         }
 
-
         endRemoveRows();
     }
 }
@@ -93,7 +114,6 @@ void MatrixModel::columnCountChanged(int _count)
             {
                m_matrix[i].append(0);
             }
-
         }
 
         endInsertColumns();

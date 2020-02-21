@@ -3,9 +3,6 @@
 
 #include "MatrixModel.h"
 
-
-#include <QDebug>
-
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     m_ui(new Ui::MainWindow),
@@ -58,7 +55,10 @@ void MainWindow::multSlot()
         m_resultMatrix = NULL;
     }
 
-    m_resultMatrix = new MatrixModel(m_ui->sbLeftRows->value(), m_ui->sbRightColumns->value(), this);
+    m_resultMatrix = new MatrixModel(m_ui->sbLeftRows->value(),
+                                     m_ui->sbRightColumns->value(),
+                                     this);
+
     m_ui->tvResultMatrix->setModel(m_resultMatrix);
 
     int threadCount = QThread::idealThreadCount();
@@ -69,9 +69,7 @@ void MainWindow::multSlot()
     }
 
     int addings = m_resultMatrix->rowCount() % threadCount;
-
     int step = m_resultMatrix->rowCount() / threadCount;
-
     int begin = 0;
     int end = 0;
 
@@ -91,7 +89,6 @@ void MainWindow::multSlot()
                                               m_resultMatrix,
                                               begin,
                                               end));
-
     }
 
     for (int i = 0; i < m_threads.count();++i)
@@ -142,6 +139,4 @@ void MainWindow::resetSlot()
 
     qDeleteAll(m_threads);
     m_threads.clear();
-
 }
-
