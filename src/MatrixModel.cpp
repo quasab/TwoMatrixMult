@@ -83,21 +83,35 @@ void MatrixModel::columnCountChanged(int _count)
 {
     if (_count > columnCount())
     {
-        beginInsertColumns(QModelIndex(), columnCount() - 1, columnCount() - 1);
+        int difference = _count - columnCount();
+
+        beginInsertColumns(QModelIndex(), columnCount(), _count - 1);
+
         for (int i = 0; i < rowCount(); ++i)
         {
-            m_matrix[i].append(0);
+            for (int j = 0; j < difference; ++j)
+            {
+               m_matrix[i].append(0);
+            }
+
         }
+
         endInsertColumns();
     }
     else if (_count < columnCount())
     {
-        beginRemoveColumns(QModelIndex(), columnCount() - 1, columnCount() - 1);
+        int difference = columnCount() - _count;
+
+        beginRemoveColumns(QModelIndex(), _count, columnCount() - 1);
+
         for (int i = 0; i < rowCount(); ++i)
         {
-            m_matrix[i].removeLast();
+            for (int j = 0; j < difference; ++j)
+            {
+                 m_matrix[i].removeLast();
+            }
         }
+
         endRemoveColumns();
     }
-
 }
