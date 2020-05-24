@@ -5,6 +5,7 @@
 #include "MultMatrixThread.h"
 
 #include <QMainWindow>
+#include <QElapsedTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -33,6 +34,8 @@ private slots:
     void multSlot();
     //! Обрабатывает нажатие на кнопку "Сброс".
     void resetSlot();
+    //! Обрабатывает завершение работы потока.
+    void threadFinished();
 
 private:
 
@@ -47,5 +50,9 @@ private:
     MatrixModel *m_resultMatrix;
     //! Список потоков.
     QList<MultMatrixThread*> m_threads;
+    //! Таймер.
+    QElapsedTimer *m_timer;
+    //! Количество завершивших работу потоков.
+    int m_threadsFinished;
 };
 #endif // MAIN_WINDOW_H

@@ -3,12 +3,16 @@
 
 #include "MatrixModel.h"
 
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     m_ui(new Ui::MainWindow),
     m_leftMatrix(NULL),
     m_rightMatrix(NULL),
-    m_resultMatrix(NULL)
+    m_resultMatrix(NULL),
+    m_timer(new QElapsedTimer()),
+    m_threadsFinished(0)
 {
     m_ui->setupUi(this);
 
@@ -42,10 +46,17 @@ MainWindow::~MainWindow()
 
     qDeleteAll(m_threads);
     m_threads.clear();
+
+    delete m_timer;
+    m_timer = NULL;
 }
 
 void MainWindow::multSlot()
 {
+    m_ui->tbTextBrowser->clear();
+
+    m_timer->restart();
+
     qDeleteAll(m_threads);
     m_threads.clear();
 
@@ -61,39 +72,72 @@ void MainWindow::multSlot()
 
     m_ui->tvResultMatrix->setModel(m_resultMatrix);
 
-    int threadCount = QThread::idealThreadCount();
+    int threadCount = 1;
 
-    if (threadCount > m_resultMatrix->rowCount())
+    if (m_ui->cbMultyThread->isChecked())
     {
-        threadCount = m_resultMatrix->rowCount();
-    }
+        threadCount = QThread::idealThreadCount();
+        m_ui->tbTextBrowser->append(QString("Найдено логических ядер: %1")
+                                    .arg(threadCount));
 
-    int addings = m_resultMatrix->rowCount() % threadCount;
-    int step = m_resultMatrix->rowCount() / threadCount;
-    int begin = 0;
-    int end = 0;
-
-    for (int i = 0; i < threadCount; ++i)
-    {
-        begin = end;
-        end += step;
-
-        if (addings > 0)
+        if (threadCount > m_resultMatrix->rowCount())
         {
-            end++;
-            addings--;
+            threadCount = m_resultMatrix->rowCount();
         }
 
-        m_threads.append(new MultMatrixThread(m_leftMatrix,
-                                              m_rightMatrix,
-                                              m_resultMatrix,
-                                              begin,
-                                              end));
-    }
+        int addings = m_resultMatrix->rowCount() % threadCount;
+        int step = m_resultMatrix->rowCount() / threadCount;
+        int begin = 0;
+        int end = 0;
 
-    for (int i = 0; i < m_threads.count();++i)
+        for (int i = 0; i < threadCount; ++i)
+        {
+            begin = end;
+            end += step;
+
+            if (addings > 0)
+            {
+                end++;
+                addings--;
+            }
+
+            m_threads.append(new MultMatrixThread(m_leftMatrix,
+                                                  m_rightMatrix,
+                                                  m_resultMatrix,
+                                                  begin,
+                                                  end));
+        }
+
+        for (int i = 0; i < m_threads.count();++i)
+        {
+            m_threads.at(i)->start();
+            connect(m_threads.at(i), SIGNAL(finished()),
+                    this, SLOT(threadFinished()));
+        }
+    }
+    else
     {
-        m_threads.at(i)->start();
+        for (int i = 0; i < m_resultMatrix->rowCount(); ++i)
+        {
+            for (int j = 0; j < m_rightMatrix->columnCount(); ++j)
+            {
+                double matrixIJ = 0;
+
+                for (int k = 0; k < m_leftMatrix->columnCount(); ++k)
+                {
+                    QModelIndex indexLeft = m_leftMatrix->index(i, k);
+                    QModelIndex indexRight = m_rightMatrix->index(k, j);
+
+                    matrixIJ += m_leftMatrix->data(indexLeft).toDouble() *
+                                m_rightMatrix->data(indexRight).toDouble();
+                }
+
+                QModelIndex resultIndex = m_resultMatrix->index(i, j);
+                m_resultMatrix->setData(resultIndex, matrixIJ);
+            }
+        }
+
+        m_ui->tbTextBrowser->append(QString("Время вычисления: %1мс").arg(m_timer->elapsed()));
     }
 }
 
@@ -139,4 +183,23 @@ void MainWindow::resetSlot()
 
     qDeleteAll(m_threads);
     m_threads.clear();
+
+    m_threadsFinished = 0;
+
+    m_ui->tbTextBrowser->clear();
+}
+
+void MainWindow::threadFinished()
+{
+    m_threadsFinished++;
+
+    if (m_threadsFinished == m_threads.count())
+    {
+        m_ui->tbTextBrowser->append(QString("Задействовано потоков: %1").arg(m_threads.count()));
+        m_ui->tbTextBrowser->append(QString("Время вычисления: %1мс").arg(m_timer->elapsed()));
+        m_threadsFinished = 0;
+    }
+
+    disconnect(sender(), SIGNAL(finished()),
+               this, SLOT(threadFinished()));
 }
