@@ -53,6 +53,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::multSlot()
 {
+    m_ui->pbMult->setEnabled(false);
     m_ui->tbTextBrowser->clear();
 
     m_timer->restart();
@@ -138,6 +139,7 @@ void MainWindow::multSlot()
         }
 
         m_ui->tbTextBrowser->append(QString("Время вычисления: %1мс").arg(m_timer->elapsed()));
+        m_ui->pbMult->setEnabled(true);
     }
 }
 
@@ -202,4 +204,6 @@ void MainWindow::threadFinished()
 
     disconnect(sender(), SIGNAL(finished()),
                this, SLOT(threadFinished()));
+
+    m_ui->pbMult->setEnabled(true);
 }
